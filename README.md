@@ -15,6 +15,7 @@ $ kubectl apply -f v2_4_6_full.yaml
 
 ### create Deployment,Service,Ingress
 $ kubectl apply -f nginx.yaml  
+$ kubectl apply -f nginx-ingress.yaml  
 
 
 ### Kubernetes Metrics Server
@@ -24,6 +25,7 @@ $ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/do
 
 
 ### Horizontal Pod Autoscaler
+※ Metrics Serverが必要
 $ kubectl apply -f nginx-hpa.yaml  
 
 stress  
@@ -38,10 +40,11 @@ $ kubectl run apache-bench -i --tty --rm --image httpd -- /bin/sh
 
 ### Kubernetes Autoscaler
 https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler/cloudprovider/aws/examples  
-$ wget https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
---2023-01-19 18:19:22--  https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml  
+
+$ wget https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml  
+
 Deploymentのimage versionをclusterに合わせる  
-<YOUR CLUSTER NAME> → sample-eks-cluster  
+YOUR CLUSTER NAME → sample-eks-cluster  
 
 $ kubectl apply -f cluster-autoscaler-autodiscover.yaml
 
@@ -49,7 +52,7 @@ stress
 replicasを10  
 $ kubectl apply -f nginx.yaml  
  or  
-$ kubectl scale deployment --replicas 10 nginx  
+$ kubectl scale deployment nginx --replicas 10  
 
 
 ### Container Insights
